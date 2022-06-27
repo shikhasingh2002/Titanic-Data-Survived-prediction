@@ -1,0 +1,41 @@
+import pandas as pd
+from matplotlib import pyplot as plt
+from sklearn.tree import DecisionTreeClassifier
+
+titanic_train=pd.read_csv('/content/train.csv')
+titanic_test=pd.read_csv('/content/test.csv')
+titanic_train.head()
+titanic_train.shape
+titanic_train['Survived'].value_counts()
+plt.figure(figsize=(5,5))
+plt.bar(list(titanic_train['Survived'].value_counts().keys()),list(titanic_train['Survived'].value_counts()),color=['r','g'])
+plt.show()
+titanic_train['Pclass'].value_counts()
+plt.figure(figsize=(5,5))
+plt.bar(list(titanic_train['Pclass'].value_counts().keys()),list(titanic_train['Pclass'].value_counts()),color=['Orange','red','green'])
+plt.show()
+titanic_train['Sex'].value_counts()
+plt.figure(figsize=(5,5))
+plt.bar(list(titanic_train['Sex'].value_counts().keys()),list(titanic_train['Sex'].value_counts()),color=['Orange','red'])
+plt.show()
+plt.figure(figsize=(5,7))
+plt.hist(titanic_train['Age'])
+plt.title("Distribution of age")
+#plt.xlabel("Age")
+plt.ylabel("No. of years")
+plt.show()
+sum(titanic_train['Survived'].isnull())
+sum(titanic_train['Age'].isnull())
+titanic_train=titanic_train.dropna()
+x_train=titanic_train[['Age']]
+y_train=titanic_train[['Survived']]
+dtc=DecisionTreeClassifier()
+dtc.fit(x_train,y_train)
+#predicting value
+sum(titanic_test['Age'].isnull())
+titanic_test=titanic_test.dropna()
+sum(titanic_test['Age'].isnull())
+x_test=titanic_test[['Age']]
+x_test
+y_pre=dtc.predict(x_test)
+y_pre
